@@ -15,7 +15,7 @@ Installation
 rmattr
 
 1. Copy `rmattr` and `rmattr.ini` to Taskwarrior "hooks" directory
-   (`~/.task/hooks` by default)
+   (`~/.task/hooks` by default). Make `rmattr` executable.
 3. Create a link:  `ln -s rmattr on-modify-rmattr`
 2. Edit `rmattr.ini` and set desired values
 
