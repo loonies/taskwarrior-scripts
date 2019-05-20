@@ -1,0 +1,71 @@
+#!/usr/bin/env python
+
+# rmattr
+#
+# Taskwarrior hook for removing attributes from a task
+#
+# Copyright (C) 2016-2019 Miodrag Tokić
+# Released under the MIT License.
+
+import json
+import os
+import sys
+from configparser import ConfigParser
+
+def config_load(section):
+    path = os.path.dirname(os.path.abspath(__file__))
+
+    config = ConfigParser()
+    config.read(path + '/rmattr.ini')
+
+    if section in config:
+        return config[section]
+
+    return None
+
+def config_value(config, attribute):
+    if attribute in config:
+        return config[attribute].split(',')
+
+    return []
+
+def remove_properties(task, config, removed):
+    props = config_value(config, 'properties')
+
+    for prop in props:
+        if prop in task:
+            del task[prop]
+            removed.add(prop)
+
+def remove_tags(task, config, removed):
+    tags = config_value(config, 'tags')
+
+    if 'tags' in task:
+        for tag in tags:
+            if tag in task['tags']:
+                task['tags'].remove(tag)
+                removed.add(tag)
+
+def main():
+    _ = json.loads(sys.stdin.readline())
+    task = json.loads(sys.stdin.readline())
+
+    config = config_load(task['status'])
+
+    if config:
+        rmprops = set()
+        rmtags = set()
+
+        remove_properties(task, config, rmprops)
+        remove_tags(task, config, rmtags)
+
+        if rmprops:
+            print('Removed properties:', ', '.join(rmprops))
+
+        if rmtags:
+            print('Removed tags:', ', '.join(rmtags))
+
+    print(json.dumps(task))
+
+main()
+sys.exit(0)

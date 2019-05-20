@@ -1,0 +1,46 @@
+Taskwarrior scripts
+===================
+
+Description
+-----------
+
+Scripts and hooks for Taskwarrior:
+
+ - rmattr: deletes tags or properties from a task when modified
+
+
+Installation
+------------
+
+rmattr
+
+1. Copy `rmattr` and `rmattr.ini` to Taskwarrior "hooks" directory
+   (`~/.task/hooks` by default)
+3. Create a link:  `ln -s rmattr on-modify-rmattr`
+2. Edit `rmattr.ini` and set desired values
+
+For more information consult Taskwarrior documentation over at
+https://taskwarrior.org/docs/
+
+
+Contributing
+------------
+
+Open an issue or send a pull request on the Github
+(http://github.com/loonies/taskwarrior-scripts).
+
+
+Authors
+-------
+
+Maintainer:
+
+ - Miodrag Tokić
+
+
+Copyright
+---------
+
+Copyright (C) 2016-2019 Miodrag Tokić.
+
+Released under the MIT License. See the LICENSE file for details.
